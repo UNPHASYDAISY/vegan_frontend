@@ -9,7 +9,8 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <style>
         body {
-            background-image: url('image-plant-pattern.png');
+            /* Make sure this image path is correct, or the background will be white */
+            background-image: url('image-plant-pattern.png'); 
             background-repeat: repeat;
             background-attachment: fixed;
             background-size: 400px;
@@ -21,15 +22,15 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#4CAF50", // A vibrant, natural green
-                        "background-light": "#F9FAF6", // Off-white with a hint of green
-                        "background-dark": "#1F2937", // A deep, muted dark blue-gray
+                        primary: "#4CAF50", 
+                        "background-light": "#F9FAF6", 
+                        "background-dark": "#1F2937", 
                     },
                     fontFamily: {
                         display: ["Poppins", "sans-serif"],
                     },
                     borderRadius: {
-                        DEFAULT: "0.5rem", // 8px
+                        DEFAULT: "0.5rem", 
                     },
                 },
             },
@@ -42,7 +43,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-20">
                     <div class="flex items-center">
-                        <a class="flex items-center space-x-2" href="#">
+                        <a class="flex items-center space-x-2" href="index.html">
                             <span class="material-icons text-primary text-4xl">eco</span>
                             <span class="text-2xl font-bold text-gray-800 dark:text-white">Vegan</span>
                         </a>
@@ -84,7 +85,7 @@
                 </aside>
                 <div class="w-full lg:w-3/4">
 
-                    <div id="vendor-filter-message" style="display:none; margin-bottom:1rem;"></div>
+                    <div id="vendor-filter-message" style="display:none; margin-bottom:1rem;" class="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg text-green-800 dark:text-green-200"></div>
                     
                     <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                         
@@ -94,11 +95,13 @@
 
                     </div>
                     
-                    <div class="text-center mt-12">
-                        <button class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
+                    <!-- UPDATED LOAD MORE BUTTON CONTAINER -->
+                    <div id="load-more-container" class="text-center mt-12" style="display: none;">
+                        <button id="load-more-btn" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
                             Load More
                         </button>
                     </div>
+
                 </div>
             </div>
         </main>
@@ -135,9 +138,10 @@
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Follow Us</h3>
                         <div class="flex justify-center md:justify-start space-x-4">
-                            <a class="text-gray-500 hover:text-primary" href="#"><img alt="Facebook icon" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE45MoepAIXTRCsOjIjDWe55_HN-RqArdD1RTnU5Hy42VHMHU_Tfe5qf45vm0DDOq1BvKfi9QLdaQDRaO_jSmj6JaHamVtav0Kf5znCStFKInmxdO73E8XbLOMpdQueRs8_EZYolvBQxcnjsq89ysBzmb_s3jetKWcgfv2c0FZeeh6655--0uqJ7lUyYOG4Xr_yt3MNK_-mWaQWbAEnZWm6Aq_pEFapwzqAZtJqx7exK4-23wPXTwW_jTpYrDbv2P6sxS45FQpFIgH" /></a>
-                            <a class="text-gray-500 hover:text-primary" href="#"><img alt="Instagram icon" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvo-iBupxl72HKx6vMhWHAEaoqMj3ztsILzsRIxq4rE7yxYLFD8eSctTetOJyWJ2N2gFvTxLBacN4R3Wk2nsv6yRl48HlKVmiJ1HiL-HT84oJkxfe0FPqstceXDE72lr8XdK2Hb0rxJQTJ5upNl4qmQcGNE8Y1DvfHGYwDwEgJO_LSC1DCZLlYBNXisQZA0L38MXBYQj8uXOsGKJUU_KFOAirimjzplNx_IdV70U3QUB1sxchHqIKEmBpeWrBc5UFFEp1fZz0erW2R" /></a>
-                            <a classs="text-gray-500 hover:text-primary" href="#"><img alt="Twitter icon" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE3ATeePsf72coCOKCMeON4EE2kHbMypwB7sFigkYE5mIjN4uVeAVHb0kBW7IPpl4ZRe30LimegR-UjRRVA38gm450F65L69eldUPx_mL--uPssb8xlXyhww5-CSM9iHwZREWDO2A9N0xQ_ygRiL11PFlzmErNbXc2013BQXjuhs-uGWNTFOVW4jiILbCdoWD754rZFItAbAcCtnP8vRLvo7Y421PYXG6xNJlK9KN1y-dao9GjqspxX6CbiAwwNPj6glwNaiDIsL3i" /></a>
+                            <!-- Social icons kept same -->
+                            <a class="text-gray-500 hover:text-primary" href="#"><img alt="Facebook" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE45MoepAIXTRCsOjIjDWe55_HN-RqArdD1RTnU5Hy42VHMHU_Tfe5qf45vm0DDOq1BvKfi9QLdaQDRaO_jSmj6JaHamVtav0Kf5znCStFKInmxdO73E8XbLOMpdQueRs8_EZYolvBQxcnjsq89ysBzmb_s3jetKWcgfv2c0FZeeh6655--0uqJ7lUyYOG4Xr_yt3MNK_-mWaQWbAEnZWm6Aq_pEFapwzqAZtJqx7exK4-23wPXTwW_jTpYrDbv2P6sxS45FQpFIgH" /></a>
+                            <a class="text-gray-500 hover:text-primary" href="#"><img alt="Instagram" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvo-iBupxl72HKx6vMhWHAEaoqMj3ztsILzsRIxq4rE7yxYLFD8eSctTetOJyWJ2N2gFvTxLBacN4R3Wk2nsv6yRl48HlKVmiJ1HiL-HT84oJkxfe0FPqstceXDE72lr8XdK2Hb0rxJQTJ5upNl4qmQcGNE8Y1DvfHGYwDwEgJO_LSC1DCZLlYBNXisQZA0L38MXBYQj8uXOsGKJUU_KFOAirimjzplNx_IdV70U3QUB1sxchHqIKEmBpeWrBc5UFFEp1fZz0erW2R" /></a>
+                            <a class="text-gray-500 hover:text-primary" href="#"><img alt="Twitter" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE3ATeePsf72coCOKCMeON4EE2kHbMypwB7sFigkYE5mIjN4uVeAVHb0kBW7IPpl4ZRe30LimegR-UjRRVA38gm450F65L69eldUPx_mL--uPssb8xlXyhww5-CSM9iHwZREWDO2A9N0xQ_ygRiL11PFlzmErNbXc2013BQXjuhs-uGWNTFOVW4jiILbCdoWD754rZFItAbAcCtnP8vRLvo7Y421PYXG6xNJlK9KN1y-dao9GjqspxX6CbiAwwNPj6glwNaiDIsL3i" /></a>
                         </div>
                     </div>
                 </div>

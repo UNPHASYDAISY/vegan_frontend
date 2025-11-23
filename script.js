@@ -1,146 +1,215 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- CONFIGURATION ---
+    const apiBase = 'https://vegan-backend-1zi7.onrender.com/api/products/';
+    
+    // --- STATE MANAGEMENT ---
+    let currentPage = 1;
+    let currentCategory = null; 
+    let currentVendor = getVendorFromQuery(); // Get vendor from URL (?vendor=Zepto)
+    let isFetching = false;
+
+    // --- DOM ELEMENTS ---
     const productContainer = document.getElementById('product-container');
+    const categoryContainer = document.getElementById('category-container');
     const loadingMessage = document.getElementById('loading-message');
     const vendorFilterMessage = document.getElementById('vendor-filter-message');
-    const categoryContainer = document.getElementById('category-container');
-    // The URL for your running Django API server
-    const apiUrl = 'https://vegan-backend-1zi7.onrender.com/api/products/';
+    const loadMoreContainer = document.getElementById('load-more-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
 
-    // Helper to get vendor from query string
+    // --- HELPER FUNCTIONS ---
     function getVendorFromQuery() {
         const params = new URLSearchParams(window.location.search);
         return params.get('vendor');
     }
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(products => {
-            loadingMessage.style.display = 'none'; // Hide the loading message
-
-            const vendor = getVendorFromQuery();
-            // keep state for category filtering
-            let activeCategory = null;
-
-            // build unique category list from API (ignore empty/null)
-            const allCategories = Array.from(new Set(products.map(p => p.category).filter(Boolean))).sort();
-
-            function renderCategories(categories) {
+    // --- 1. FETCH CATEGORIES (Sidebar) ---
+    function fetchCategories() {
+        fetch(`${apiBase}categories/`)
+            .then(res => res.json())
+            .then(categories => {
                 if (!categoryContainer) return;
                 categoryContainer.innerHTML = '';
 
-                // Add an "All" option
-                const allBtn = document.createElement('button');
-                allBtn.textContent = 'All';
-                allBtn.className = 'px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200';
-                allBtn.addEventListener('click', () => {
-                    activeCategory = null;
-                    document.querySelectorAll('#category-container button').forEach(b => b.classList.remove('ring-2','ring-primary'));
-                    allBtn.classList.add('ring-2','ring-primary');
-                    renderProducts();
-                });
+                // Create "All" Button
+                const allBtn = createCategoryButton('All', null);
+                setActiveButton(allBtn); // Default active
                 categoryContainer.appendChild(allBtn);
 
+                // Create Buttons for each category
                 categories.forEach(cat => {
-                    const btn = document.createElement('button');
-                    btn.textContent = cat;
-                    btn.className = 'px-3 py-2 rounded bg-white dark:bg-gray-900 hover:bg-gray-50';
-                    btn.addEventListener('click', () => {
-                        activeCategory = cat;
-                        document.querySelectorAll('#category-container button').forEach(b => b.classList.remove('ring-2','ring-primary'));
-                        btn.classList.add('ring-2','ring-primary');
-                        renderProducts();
-                    });
+                    const btn = createCategoryButton(cat, cat);
                     categoryContainer.appendChild(btn);
                 });
-            }
+            })
+            .catch(err => console.error("Failed to load categories", err));
+    }
 
-            function renderProducts() {
-                let filteredProducts = products.slice();
+    function createCategoryButton(label, categoryValue) {
+        const btn = document.createElement('button');
+        btn.textContent = label;
+        // Base styling for sidebar buttons
+        btn.className = 'w-full text-left px-4 py-3 rounded-lg transition-colors duration-200 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 bg-white dark:bg-gray-900';
+        
+        btn.addEventListener('click', () => {
+            // 1. Update Visual State
+            const allButtons = categoryContainer.querySelectorAll('button');
+            allButtons.forEach(b => {
+                b.classList.remove('bg-primary', 'text-white');
+                b.classList.add('bg-white', 'dark:bg-gray-900', 'text-gray-600');
+            });
+            setActiveButton(btn);
 
-                if (vendor) {
-                    filteredProducts = filteredProducts.filter(product => {
-                        return product.vendor && product.vendor.toLowerCase() === vendor.toLowerCase();
-                    });
-                    vendorFilterMessage.style.display = 'block';
-                    vendorFilterMessage.textContent = `Showing products for vendor: ${vendor}`;
-                } else {
-                    vendorFilterMessage.style.display = 'none';
-                }
-
-                if (activeCategory) {
-                    filteredProducts = filteredProducts.filter(p => p.category && p.category === activeCategory);
-                }
-
-                if (filteredProducts.length === 0) {
-                    productContainer.innerHTML = '<p>No products found.</p>';
-                    return;
-                }
-
-                productContainer.innerHTML = '';
-                filteredProducts.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'bg-white dark:bg-gray-800 rounded-lg shadow p-4';
-
-                    const price = (product.price !== undefined && product.price !== null && product.price !== '') ? `₹${parseFloat(product.price).toFixed(2)}` : '';
-                    const description = product.description || 'No description available.';
-                    const image = product.image_url || product.image || 'https://placehold.co/600x400?text=No+Image';
-                    const link = product.product_link || product.link || '#';
-                    const vegan = product.vegan_status || product.vegan || 'unknown';
-                    const category = product.category || 'Uncategorized';
-
-                    // choose badge color
-                    let badgeClasses = 'inline-block px-2 py-1 text-xs rounded-full';
-                    let badgeText = String(vegan).toLowerCase();
-                    if (badgeText === 'vegan' || badgeText === 'yes' || badgeText === 'true') {
-                        badgeClasses += ' bg-green-100 text-green-800';
-                        badgeText = 'Vegan';
-                    } else if (badgeText === 'non-vegan' || badgeText === 'not vegan' || badgeText === 'no' || badgeText === 'false') {
-                        badgeClasses += ' bg-red-100 text-red-800';
-                        badgeText = 'Not Vegan';
-                    } else {
-                        badgeClasses += ' bg-gray-100 text-gray-800';
-                        badgeText = 'Unknown';
-                    }
-
-                    card.innerHTML = `
-                        <div class="w-full h-48 overflow-hidden rounded-md mb-3">
-                            <img src="${image}" alt="${product.name || ''}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Error';">
-                        </div>
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="flex-1">
-                                <h3 class="text-lg font-semibold">${product.name || 'Unnamed Product'}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-300 my-2">${description}</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Category: <strong>${category}</strong></p>
-                            </div>
-                            <div class="flex flex-col items-end gap-2">
-                                <span class="${badgeClasses}">${badgeText}</span>
-                                <p class="text-lg font-bold">${price}</p>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <a href="${link}" target="_blank" class="inline-block bg-primary text-white px-4 py-2 rounded">View Product</a>
-                        </div>
-                    `;
-
-                    productContainer.appendChild(card);
-                });
-            }
-
-            // render categories and products initially
-            renderCategories(allCategories);
-            // mark "All" as selected by default
-            const firstBtn = categoryContainer && categoryContainer.querySelector('button');
-            if (firstBtn) firstBtn.classList.add('ring-2','ring-primary');
-            renderProducts();
-        })
-        .catch(error => {
-            loadingMessage.style.display = 'none'; // Hide loading message on error too
-            console.error('Error fetching products:', error);
-            productContainer.innerHTML = '<p class="error-message">Failed to load products. Please make sure the backend server is running and check the console for details.</p>';
+            // 2. Update Logic State
+            currentCategory = categoryValue;
+            currentPage = 1; // RESET page to 1
+            
+            // 3. Clear container immediately to show we are reloading
+            productContainer.innerHTML = '';
+            
+            // 4. Fetch new data
+            fetchProducts();
         });
+        return btn;
+    }
+
+    function setActiveButton(btn) {
+        btn.classList.remove('bg-white', 'dark:bg-gray-900', 'text-gray-600');
+        btn.classList.add('bg-primary', 'text-white');
+    }
+
+    // --- 2. FETCH PRODUCTS (Main Logic) ---
+    async function fetchProducts() {
+        if (isFetching) return;
+        isFetching = true;
+
+        // Show loading message only if it's the first page
+        if (currentPage === 1) {
+            loadingMessage.style.display = 'block';
+            loadMoreContainer.style.display = 'none';
+        } else {
+            loadMoreBtn.textContent = 'Loading...';
+        }
+
+        // Build URL with parameters
+        let url = new URL(apiBase);
+        url.searchParams.append('page', currentPage);
+        
+        if (currentVendor) {
+            url.searchParams.append('vendor', currentVendor);
+            if (vendorFilterMessage) {
+                vendorFilterMessage.style.display = 'block';
+                vendorFilterMessage.innerHTML = `Showing products from: <b>${currentVendor}</b>`;
+            }
+        }
+        
+        if (currentCategory) {
+            url.searchParams.append('category', currentCategory);
+        }
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            // Hide loading
+            loadingMessage.style.display = 'none';
+            loadMoreBtn.textContent = 'Load More';
+            isFetching = false;
+
+            // Handle "No Products Found"
+            if (currentPage === 1 && data.results.length === 0) {
+                productContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <span class="material-icons text-6xl text-gray-300 mb-4">search_off</span>
+                        <p class="text-xl text-gray-500">No products found.</p>
+                    </div>`;
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            // Render cards
+            renderProductCards(data.results);
+
+            // Toggle "Load More" button based on backend response
+            if (data.has_next) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            loadingMessage.textContent = 'Error loading products. Please refresh.';
+            isFetching = false;
+        }
+    }
+
+    function renderProductCards(products) {
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full';
+
+            const price = (product.price) ? `₹${parseFloat(product.price).toFixed(2)}` : '';
+            const description = product.description ? (product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description) : 'No description available.';
+            const image = product.image_url || 'https://placehold.co/600x400?text=No+Image';
+            const link = product.product_link || '#';
+            const category = product.category || 'Pantry';
+
+            // Badge Logic
+            let statusColor = 'bg-gray-100 text-gray-600';
+            let statusText = 'Unknown';
+            const status = (product.vegan_status || '').toLowerCase();
+            
+            if (status === 'vegan') {
+                statusColor = 'bg-green-100 text-green-700 border border-green-200';
+                statusText = 'Vegan';
+            } else if (status === 'non_vegan') {
+                statusColor = 'bg-red-100 text-red-700 border border-red-200';
+                statusText = 'Not Vegan';
+            } else if (status === 'unsure') {
+                statusColor = 'bg-orange-100 text-orange-700 border border-orange-200';
+                statusText = 'Unsure';
+            }
+
+            card.innerHTML = `
+                <div class="relative h-48 overflow-hidden group">
+                    <img src="${image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/600x400?text=No+Image'">
+                    <span class="absolute top-3 right-3 px-3 py-1 text-xs font-bold rounded-full ${statusColor}">
+                        ${statusText}
+                    </span>
+                </div>
+                
+                <div class="p-5 flex-grow flex flex-col">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs font-medium text-primary bg-green-50 px-2 py-1 rounded">${category}</span>
+                        ${product.vendor ? `<span class="text-xs text-gray-400 font-mono">${product.vendor}</span>` : ''}
+                    </div>
+                    
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2 leading-tight line-clamp-2">${product.name}</h3>
+                    
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3">${description}</p>
+                    
+                    <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                        <span class="text-xl font-bold text-gray-900 dark:text-white">${price}</span>
+                        <a href="${link}" target="_blank" class="flex items-center gap-1 text-sm font-medium text-white bg-primary hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">
+                            View
+                            <span class="material-icons text-[16px]">open_in_new</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+            productContainer.appendChild(card);
+        });
+    }
+
+    // --- 3. EVENT LISTENERS ---
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            currentPage++; // INCREMENT PAGE
+            fetchProducts(); // Append next batch
+        });
+    }
+
+    // --- 4. INITIALIZATION ---
+    fetchCategories(); 
+    fetchProducts();   
 });
