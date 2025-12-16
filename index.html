@@ -1,215 +1,259 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
-
+<html class="dark scroll-smooth" lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Vegan - Your Plant-Based Grocery Gateway</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Vagan - Plant-Based Living</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#4CAF50",
-                        "background-light": "#F8F9FA",
-                        "background-dark": "#1a1a1a",
-                        "text-light": "#333333",
-                        "text-dark": "#e0e0e0",
-                        accent: "#FFC107",
+                        "primary": "#36e27b",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#112117",
+                        "surface-dark": "#1a2620",
+                        "surface-highlight": "#29382f",
+                        "text-subtle": "#9eb7a8",
                     },
                     fontFamily: {
-                        display: ["Work Sans", "sans-serif"],
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
                     },
-                    borderRadius: {
-                        DEFAULT: "0.5rem",
-                        lg: "1rem",
-                        xl: "1.5rem",
-                        full: "9999px",
-                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
                 },
             },
-        };
-    </script>
-    <style type="text/tailwindcss">
-        body {
-            @apply font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark;
         }
-    </style>
+    </script>
 </head>
-
-<body class="bg-background-light dark:bg-background-dark">
-    <div class="relative flex min-h-screen w-full flex-col font-display group/design-root">
-        <header
-            class="absolute top-0 left-0 right-0 z-10 p-4 sm:p-6 md:px-10 md:py-5 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-800/50">
-            <nav class="flex items-center justify-between max-w-7xl mx-auto">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary text-3xl">
-                        eco
-                    </span>
-                    <h2 class="text-text-light dark:text-text-dark text-xl font-bold tracking-[-0.015em]">
-                        Vegan
-                    </h2>
-                </div>
-                <div class="hidden md:flex items-center gap-8">
-                    <a class="text-text-light dark:text-text-dark font-medium hover:text-primary transition-colors"
-                        href="index.html">Home</a>
-                    <a class="text-text-light/70 dark:text-text-dark/70 font-medium hover:text-primary transition-colors"
-                        href="about.html">About Us</a>
-                    <a class="text-text-light/70 dark:text-text-dark/70 font-medium hover:text-primary transition-colors"
-                        href="#">Contact Us</a>
-                </div>
-                <!-- <div class="flex items-center gap-4">
-                    <div style="display: none;">
-                    <button
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-                        <span class="truncate">Log In</span>
-                    </button>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-300">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+    <header class="sticky top-0 z-50 w-full border-b border-solid border-b-gray-200 dark:border-b-[#29382f] bg-background-light/80 dark:bg-[#111714]/80 backdrop-blur-md">
+        <div class="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 lg:px-10">
+            <div class="flex items-center gap-8">
+                <a class="flex items-center gap-3 text-slate-900 dark:text-white hover:opacity-80 transition-opacity" href="#">
+                    <div class="size-8 text-primary">
+                        <svg class="h-full w-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+                        </svg>
                     </div>
-                    <button
-                        class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
-                        <span class="material-symbols-outlined text-text-light dark:text-text-dark">
-                            menu
-                        </span>
-                    </button>
-                </div> -->
-            </nav>
-        </header>
-        <main class="flex-grow flex flex-col pt-20">
-            <div class="relative flex flex-1 items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 z-0">
-                    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                        data-alt="A blurred background image of fresh colorful vegetables and fruits." style="
-                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWzJn5skQf82Big7JHu4yQdm5hUkVjbsLPNsAN2U7KGd8_zPRD4BQAYAt73sUIUiL15ZSgZt9JmxRwdlyQKaYAVeqEkMW5O9aHHpcbne0y3luVs-naE0BHgpKyjeu3fqJIdfXdwrKxkzDWfn7JLjr8oNBhnjNxS9TtLUp97A07rFoHWOcoPkZpo4EMmfSdIfwonDIwUzwrBkhIJwjvefYzZc11fpVbssf-_vJRQNIoxlhHR9s9yl7KKEPBCzOg439LeU-xv2faWtMS');
-              "></div>
-                    <div class="absolute inset-0 bg-background-light/80 dark:bg-background-dark/90"></div>
-                </div>
-                <div class="relative z-10 flex w-full max-w-md flex-col items-center gap-6 px-4 py-8">
-                    <h1 class="text-4xl font-black text-center text-text-light dark:text-text-dark sm:text-5xl">
-                        Your Gateway to Vegan Living
-                    </h1>
-                    <p class="text-base text-center text-text-light/80 dark:text-text-dark/80 max-w-sm">
-                        Discover fresh, sustainable, and plant-based groceries from our
-                        curated selection of top vegan stores.
-                    </p>
-                    <div class="flex w-full flex-col items-stretch gap-4 pt-4">
-                        <a class="group flex h-20 w-full cursor-pointer items-center justify-start overflow-hidden rounded-xl bg-[#e8f5e9] dark:bg-[#2e7d32]/30 px-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-                            href="products.html?vendor=BigBasket">
-                            <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-3xl text-[#66bb6a]">
-                                    nutrition
-                                </span>
-                                <span
-                                    class="truncate text-xl font-bold text-text-light dark:text-text-dark">BigBasket</span>
-                            </div>
-                        </a>
-                        <a class="group flex h-20 w-full cursor-pointer items-center justify-start overflow-hidden rounded-xl bg-[#f1f8e9] dark:bg-[#558b2f]/30 px-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-                            href="products.html?vendor=JioMart">
-                            <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-3xl text-[#9ccc65]">
-                                    spa
-                                </span>
-                                <span
-                                    class="truncate text-xl font-bold text-text-light dark:text-text-dark">JioMart</span>
-                            </div>
-                        </a>
-                        <a class="group flex h-20 w-full cursor-pointer items-center justify-start overflow-hidden rounded-xl bg-[#fff8e1] dark:bg-[#ff8f00]/20 px-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-                            href="products.html?vendor=Zepto">
-                            <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-3xl text-[#ffa726]">
-                                    forest
-                                </span>
-                                <span
-                                    class="truncate text-xl font-bold text-text-light dark:text-text-dark">Zepto</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                    <h2 class="text-xl font-bold leading-tight tracking-tight">Vagan</h2>
+                </a>
             </div>
-        </main>
-        <footer class="bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800">
-            <div class="max-w-7xl mx-auto px-6 py-12 sm:px-8 lg:px-10">
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-                    <div class="col-span-2 md:col-span-4 lg:col-span-2 flex flex-col items-start">
-                        <div class="flex items-center gap-3 mb-4">
-                            <span class="material-symbols-outlined text-primary text-3xl">
-                                eco
-                            </span>
-                            <h2 class="text-text-light dark:text-text-dark text-xl font-bold tracking-[-0.015em]">
-                                Vegan
-                            </h2>
+            <div class="flex justify-end gap-4 md:gap-6 items-center">
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+                    <!-- <a class="text-sm font-medium hover:text-primary transition-colors" href="products.html">Shop</a> -->
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#about">About</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="flex-1">
+        <div class="mx-auto max-w-[1280px] px-4 md:px-6 lg:px-10 py-6 md:py-8 space-y-12 md:space-y-16">
+            
+            <section class="relative min-h-[500px] flex items-end p-8 md:p-12 lg:p-16">
+                
+                <div class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+                    <div class="absolute inset-0 bg-cover bg-center" data-alt="Overhead shot of fresh green vegetables and fruits on dark surface" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCu1pZrbI9dRZ29Ij3sfti22edbQJcquiqa6-TAJD1Y5DrsjbuxKlmIowHYQLUNaLv_GiMoEXAQ5gpISynQfGbHAlFK-4pxxqzrO206L4NE5DoS8g4MPI0NDxmtq6ZEJi5jeY75S2O0uLG0TyLErVEKasS-GU8rSV1OR2jhEL7rNJn5SmSD3I4TBl_pMdx-dYSuSg7Dq_YsQL-ldKVFYKsXTV7Iu8ALjTfyI8iYEnGOlEst5655-BTU0E1bddHfwc5UjaEQ3SK-PZ8");'></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10"></div>
+                </div>
+
+                <div class="relative z-10 max-w-2xl flex flex-col items-start gap-6 animate-fade-in-up">
+                    <div class="flex flex-col gap-3">
+                        <h1 class="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
+                            Plant-Based <br/><span class="text-primary">Perfection.</span>
+                        </h1>
+                        <p class="text-lg text-gray-200 max-w-lg font-body leading-relaxed">
+                            Discover the future of food with our curated vegan selection. Ethically sourced, purely delicious.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 pt-2 items-center">
+                        <div class="relative group">
+                            <button class="bg-primary text-background-dark hover:bg-[#2bc466] font-bold py-3.5 px-8 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(54,226,123,0.3)] inline-flex items-center gap-2">
+                                Shop Now
+                                <span class="material-symbols-outlined text-sm">expand_more</span>
+                            </button>
+
+                            <div class="absolute left-0 mt-2 w-48 origin-top-left rounded-xl bg-white dark:bg-surface-highlight border border-gray-200 dark:border-white/10 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden transform group-hover:translate-y-0 translate-y-2">
+                                <div class="py-1">
+                                    <a href="products.html?vendor=BigBasket" target="_blank" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+                                        Big Basket
+                                    </a>
+                                    <a href="products.html?vendor=JioMart" target="_blank" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+                                        JioMart
+                                    </a>
+                                    <a href="products.html?vendor=Zepto" target="_blank" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+                                        Zepto
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-text-light/70 dark:text-text-dark/70 text-sm">Your one-stop destination for all
-                            things plant-based.</p>
+
+                        <a href="#about" class="bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 font-bold py-3.5 px-8 rounded-full transition-all inline-block text-center">
+                            Learn More
+                        </a>
                     </div>
-                    <div>
-                        <h3 class="font-semibold text-text-light dark:text-text-dark mb-4">Sitemap</h3>
-                        <ul class="space-y-3">
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="#">Home</a></li>
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="#">Shop</a></li>
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="#">Recipes</a></li>
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="#">Blog</a></li>
-                        </ul>
+                </div>
+            </section>
+
+            <section class="grid md:grid-cols-2 gap-12 items-center py-8" id="about">
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-primary w-fit">
+                        <span class="material-symbols-outlined text-sm">verified</span>
+                        <span class="text-xs font-bold uppercase tracking-wider">Our Mission</span>
                     </div>
-                    <div>
-                        <h3 class="font-semibold text-text-light dark:text-text-dark mb-4">Company</h3>
-                        <ul class="space-y-3">
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="about.html">About Us</a></li>
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="#">Contact Us</a></li>
-                            <li><a class="text-sm text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                    href="#">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-text-light dark:text-text-dark mb-4">Follow Us</h3>
-                        <div class="flex space-x-4">
-                            <a class="text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                href="#">
-                                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path clip-rule="evenodd"
-                                        d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                                        fill-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                            <a class="text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                href="#">
-                                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
-                                    </path>
-                                </svg>
-                            </a>
-                            <a class="text-text-light/70 dark:text-text-dark/70 hover:text-primary dark:hover:text-primary transition-colors"
-                                href="#">
-                                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" role="img"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.626c-3.141 0-3.504.011-4.726.068-2.633.12-3.868 1.355-3.992 3.992-.057 1.222-.067 1.585-.067 4.726s.01 3.504.067 4.726c.124 2.637 1.359 3.868 3.992 3.992 1.222.057 1.585.067 4.726.067s3.504-.01 4.726-.067c2.633-.124 3.868-1.355 3.992-3.992.057-1.222.067-1.585.067-4.726s-.01-3.504-.067-4.726c-.124-2.637-1.359-3.868-3.992-3.992C15.504 3.799 15.141 3.789 12 3.789zm0 2.427a5.785 5.785 0 100 11.57 5.785 5.785 0 000-11.57zm0 1.626a4.159 4.159 0 110 8.318 4.159 4.159 0 010-8.318zm6.406-3.328a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z">
-                                    </path>
-                                </svg>
-                            </a>
+                    <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">Empowering a <span class="text-primary">Sustainable</span> Future</h2>
+                    <p class="text-lg text-gray-500 dark:text-text-subtle leading-relaxed">
+                        We are dedicated to providing accessible, high-quality plant-based products that nourish your body and protect our planet. Every choice matters, and we're here to make the green choice the easy choice.
+                    </p>
+                    <div class="pt-4 grid grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <span class="material-symbols-outlined text-primary text-3xl">cruelty_free</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white">100% Vegan</h4>
+                            <p class="text-sm text-gray-500 dark:text-text-subtle">Cruelty-free products guaranteed.</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white">Eco-Friendly</h4>
+                            <p class="text-sm text-gray-500 dark:text-text-subtle">Sustainably sourced and packaged.</p>
                         </div>
                     </div>
                 </div>
-                <div class="mt-12 border-t border-gray-200 dark:border-gray-800 pt-8 text-center">
-                    <p class="text-sm text-text-light/50 dark:text-text-dark/50">
-                        © 2024 Vegan. All rights reserved.
+                <div class="relative bg-surface-highlight rounded-2xl p-8 min-h-[400px] flex items-center justify-center overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-50"></div>
+                    <div class="relative z-10 text-center space-y-4">
+                        <span class="material-symbols-outlined text-[80px] text-primary/50 group-hover:scale-110 transition-transform duration-500">spa</span>
+                        <h3 class="text-2xl font-bold text-white">Pure. Ethical. Delicious.</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-8" id="contact">
+                <div class="rounded-2xl bg-white dark:bg-surface-highlight border border-gray-200 dark:border-white/5 p-8 md:p-12 shadow-sm">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div class="space-y-8">
+                            <div class="space-y-4">
+                                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Contact Us</h2>
+                                <p class="text-gray-500 dark:text-text-subtle text-lg">Have questions about our products or sourcing? We'd love to hear from you.</p>
+                            </div>
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                                        <span class="material-symbols-outlined">mail</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">Email Us</h4>
+                                        <p class="text-gray-500 dark:text-text-subtle">hello@vagan.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                                        <span class="material-symbols-outlined">call</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">Call Us</h4>
+                                        <p class="text-gray-500 dark:text-text-subtle">+1 (555) 123-4567</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                                        <span class="material-symbols-outlined">location_on</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">Visit Us</h4>
+                                        <p class="text-gray-500 dark:text-text-subtle">123 Green Way, Plant City, PC 90210</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="bg-background-light dark:bg-[#111714] p-6 md:p-8 rounded-xl space-y-4 border border-gray-200 dark:border-white/5">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-slate-900 dark:text-white">First Name</label>
+                                    <input class="w-full rounded-lg bg-white dark:bg-surface-highlight border-gray-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="Jane" type="text"/>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-slate-900 dark:text-white">Last Name</label>
+                                    <input class="w-full rounded-lg bg-white dark:bg-surface-highlight border-gray-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="Doe" type="text"/>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-900 dark:text-white">Email</label>
+                                <input class="w-full rounded-lg bg-white dark:bg-surface-highlight border-gray-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="jane@example.com" type="email"/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-900 dark:text-white">Message</label>
+                                <textarea class="w-full rounded-lg bg-white dark:bg-surface-highlight border-gray-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="How can we help?" rows="4"></textarea>
+                            </div>
+                            <button class="w-full bg-primary hover:bg-[#2bc466] text-background-dark font-bold py-3 rounded-lg transition-colors" type="button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="border-t border-gray-200 dark:border-surface-highlight bg-white dark:bg-[#0c100e] pt-16 pb-8">
+        <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-2 text-slate-900 dark:text-white">
+                        <div class="size-6 text-primary">
+                            <svg class="h-full w-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold">Vagan</h2>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-text-subtle">
+                        Your trusted source for 100% plant-based products. Better for you, better for the planet.
                     </p>
                 </div>
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Shop</h4>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">New Arrivals</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Bestsellers</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="products.html">Categories</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Gift Cards</a>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Company</h4>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#about">About</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Sustainability</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Careers</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Press</a>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Help</h4>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">FAQ</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Shipping</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#">Returns</a>
+                    <a class="text-sm text-gray-500 dark:text-text-subtle hover:text-primary transition-colors" href="#contact">Contact</a>
+                </div>
             </div>
-        </footer>
-    </div>
-
+            <div class="border-t border-gray-200 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-400 dark:text-text-subtle">© 2023 Vagan Inc. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a class="text-gray-400 hover:text-primary transition-colors" href="#">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+                    </a>
+                    <a class="text-gray-400 hover:text-primary transition-colors" href="#">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 </body>
-
 </html>

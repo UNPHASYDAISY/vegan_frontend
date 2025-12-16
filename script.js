@@ -247,8 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
                         <span class="text-xl font-bold text-gray-900 dark:text-white">${price}</span>
                         <a href="${link}" target="_blank" class="flex items-center gap-1 text-sm font-medium text-white bg-primary hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">
-                            View
-                            <span class="material-icons text-[16px]">open_in_new</span>
+                            View Product
                         </a>
                     </div>
                 </div>
